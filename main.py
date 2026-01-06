@@ -63,22 +63,30 @@ def callback():
         session['expires_at'] = datetime.now().timestamp() + token_info['expires_in']  
         
         return redirect('/playlists')
-    
-
-@app.route('/playlists')
+    @app.route('/playlists')
 def get_playlists():
     if access_token not in session:
         return redirect('/login')
-    
+
     if datetime.now().timestamp() > session['expires_at']:
         return redirect('/refresh_token')
+
     headers = {
         'authorization': f"Bearer {session['access_token']}"
     }
+
     response = requests.get(f"{API_base_url}me/playlists", headers=headers)
     playlists = response.json()
-    return jsonify(playlists)
 
+    playlist_names = []
+
+    for p in playlists['items']:
+        playlist_names.append(p['name'])
+
+    print("LISTA PLAYLIST:")
+    print(playlist_names)
+
+    return jsonify(playlists)
 @app.route('/refresh_token')
 def refresh_token():
     if 'refresh_token' not in session:
