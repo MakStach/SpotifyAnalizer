@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SpotiFit | Spotify Playlist Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #1DB954, #191414);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 420px;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 2.2rem;
+    }
+
+    p {
+      margin-bottom: 30px;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    button {
+      background-color: #1DB954;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #1ed760;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SpotiFit</h1>
+    <p>
+      Analyze your Spotify playlists and discover insights about your music
+    </p>
+    <button onclick="redirectToSpotify()">
+      Log in with Spotify
+    </button>
+  </div>
+
+  <script>
+    function redirectToSpotify() {
+        const clientId = CLIENT_ID;
+      const redirectUri = "/login";
+      const scopes = 'playlist-read-private playlist-read-collaborative user-library-read';
+      const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(scopes)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+        window.location.href = authUrl;
+    }       
+  </script>
+</body>
+</html>
